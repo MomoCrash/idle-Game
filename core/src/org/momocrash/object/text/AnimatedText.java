@@ -8,12 +8,13 @@ public class AnimatedText extends TextObject {
     private float xProgress;
     private float yProgress;
 
-    public AnimatedText(String text, float x, float y) {
+    public AnimatedText(String text, float x, float y, float xTransition, float yTransition) {
         super(text, x, y);
-        finalX = x;
-        finalY = y;
+        finalX = x + xTransition;
+        finalY = y + yTransition;
     }
 
+    @Override
     public void startAnimation(float x, float y) {
 
         this.xProgress = x;
@@ -23,6 +24,7 @@ public class AnimatedText extends TextObject {
 
     }
 
+    @Override
     public boolean animate() {
 
         boolean edited = false;
@@ -35,7 +37,7 @@ public class AnimatedText extends TextObject {
             edited = true;
         }
 
-        return false;
+        return edited;
 
     }
 

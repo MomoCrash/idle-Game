@@ -3,7 +3,7 @@ package org.momocrash.object.manager;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectList;
-import org.momocrash.Player;
+import org.momocrash.data.Player;
 import org.momocrash.object.interactive.InteractiveObject;
 
 public class InteractiveObjectManager {

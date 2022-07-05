@@ -1,8 +1,7 @@
-package org.momocrash;
+package org.momocrash.data;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import org.momocrash.data.GameData;
 import org.momocrash.language.Language;
 import org.momocrash.object.interactive.InteractiveObject;
 import org.momocrash.object.solid.SolidObject;
@@ -14,7 +13,7 @@ public class Player {
     private final UUID uniqueId;
     private final Language lang;
     private final String name;
-    private final GameData data;
+    private final PlayerData playerData;
 
     private float x;
     private float y;
@@ -22,12 +21,12 @@ public class Player {
     private final float width = 50;
     private final float height = 50;
 
-    public Player(String id, String name, Language lang, GameData data) {
+    public Player(String id, String name, Language lang, PlayerData data) {
 
         this.name = name;
         this.uniqueId = UUID.fromString(id);
         this.lang = lang;
-        this.data = data;
+        this.playerData = data;
 
     }
 
@@ -115,8 +114,8 @@ public class Player {
         return uniqueId;
     }
 
-    public GameData getData() {
-        return data;
+    public PlayerData getPlayerData() {
+        return playerData;
     }
 
 }

@@ -3,7 +3,8 @@ package org.momocrash;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import org.momocrash.data.GameData;
+import org.momocrash.data.Player;
+import org.momocrash.data.PlayerData;
 import org.momocrash.language.Language;
 import org.momocrash.screens.GameScreen;
 
@@ -13,11 +14,12 @@ public class IdleMain extends Game {
 
 	private static IdleMain instance;
 
-	public final GameData gameData = new GameData();
-	public final Player player = new Player(UUID.randomUUID().toString(), "KAMETOLANGUAGE", Language.ENGLISH, gameData);
+	public final PlayerData playerData = new PlayerData();
+	public final Player player = new Player(UUID.randomUUID().toString(), "KAMETOLANGUAGE", Language.ENGLISH, playerData);
 
 	private SpriteBatch batch;
 	private BitmapFont font;
+	private GameScreen screen;
 
 	public IdleMain() {
 		instance = this;
@@ -26,7 +28,8 @@ public class IdleMain extends Game {
 	public void create() {
 		batch = new SpriteBatch();
 		font = new BitmapFont(); // use libGDX's default Arial font
-		this.setScreen(new GameScreen(this));
+		screen = new GameScreen(this);
+		this.setScreen(screen);
 	}
 
 	public void render() {
@@ -46,12 +49,17 @@ public class IdleMain extends Game {
 		return font;
 	}
 
+	@Override
+	public GameScreen getScreen() {
+		return screen;
+	}
+
 	public Player getPlayer() {
 		return player;
 	}
 
-	public GameData getGameData() {
-		return gameData;
+	public PlayerData getGameData() {
+		return playerData;
 	}
 
 	public static IdleMain getInstance() {

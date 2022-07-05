@@ -7,17 +7,15 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import it.unimi.dsi.fastutil.objects.ObjectList;
 import org.momocrash.IdleMain;
-import org.momocrash.Player;
-import org.momocrash.data.GameData;
+import org.momocrash.data.Player;
+import org.momocrash.data.PlayerData;
 import org.momocrash.language.Translation;
 import org.momocrash.object.manager.InteractiveObjectManager;
 import org.momocrash.object.manager.SolidManager;
+import org.momocrash.object.manager.TextManager;
 import org.momocrash.object.solid.Wall;
 import org.momocrash.object.text.BasicText;
-import org.momocrash.object.text.TextObject;
 import org.momocrash.object.interactive.BasicBank;
 import org.momocrash.object.text.TranslatedText;
 
@@ -31,7 +29,7 @@ public class GameScreen implements Screen {
 
     private final SolidManager solidManager;
     private final InteractiveObjectManager interactiveManager;
-    private final ObjectList<TextObject> textObjects = new ObjectArrayList<>();
+    private final TextManager textManager;
 
     private long lastSecond = TimeUtils.millis();
     private boolean antiSpam = true;
@@ -45,6 +43,7 @@ public class GameScreen implements Screen {
 
         solidManager = new SolidManager();
         interactiveManager = new InteractiveObjectManager();
+        textManager = new TextManager();
 
         camera.setToOrtho(false, 1080, 720);
         solidManager.add(new Wall(500, 500, 100, 100));
@@ -59,7 +58,7 @@ public class GameScreen implements Screen {
         game.getBatch().setProjectionMatrix(camera.combined);
 
         Player player = game.getPlayer();
-        GameData data = game.getGameData();
+        PlayerData playerData = game.getGameData();
 
         // Draw shape of objects
         solidManager.renderShape(shapeRenderer);
@@ -74,9 +73,10 @@ public class GameScreen implements Screen {
         // Input touch
         // Mouvement
         movePlayer(player);
-        if (Gdx.input.isKeyJustPressed(Input.Keys.Y) && antiSpam()) {
-            if (!interactiveManager.touch(player)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.Y) && antiSpam()) {
+            if (!interactiveManager.touch(player) && playerData.hasEnoughMoney(1000)) {
                 interactiveManager.add(new BasicBank(player, 100, 10, player.getX(), player.getY()));
+                playerData.withdrawMoney(1000);
             }
         }
 
@@ -90,7 +90,7 @@ public class GameScreen implements Screen {
 
         // Time management
         if (TimeUtils.timeSinceMillis(lastSecond) >= 1000) {
-            data.incrementTime();
+            playerData.incrementTime();
             interactiveManager.useAll();
             antiSpam = false;
             lastSecond = TimeUtils.millis();
@@ -99,23 +99,30 @@ public class GameScreen implements Screen {
         // Draw on screen
         game.getBatch().begin();
 
-        // Text
+        // Animated Text
+        textManager.updateAnimation();
+
+        // Render Text
+        textManager.renderText();
+
+        // Static Text
         if (Gdx.input.isKeyPressed(Input.Keys.TAB)) {
             new BasicText(player.getName(), player.getX() - (5 + (player.getName().length() * 1.3f)),
                     player.getY() + 65).drawText();
         }
 
         new TranslatedText(player, Translation.MONEY,
-                new String[]{"money," + data.getMoney(),
-                        "money_pers," + data.getPerSecondMoney()},
+                new String[]{"money," + playerData.getMoney(),
+                        "money_pers," + playerData.getPerSecondMoney()},
                 10, 710).drawText();
 
         new TranslatedText(player, Translation.ENERGY,
-                new String[]{"energy," + data.getEnergy(),
-                        "energy_pers," + data.getPerSecondEnergy()},
+                new String[]{"energy," + playerData.getEnergy(),
+                        "energy_pers," + playerData.getPerSecondEnergy()},
                 10, 690).drawText();
 
 
+        // Render Image
         solidManager.renderImage();
         interactiveManager.renderImage();
 
@@ -213,6 +220,12 @@ public class GameScreen implements Screen {
 
         return true;
 
+    }
+
+    // GETTER
+
+    public TextManager getTextManager() {
+        return textManager;
     }
 
 }
