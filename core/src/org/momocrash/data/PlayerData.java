@@ -1,10 +1,8 @@
 package org.momocrash.data;
 
-import java.util.UUID;
+public class PlayerData {
 
-public class GameData {
-
-    private double money = 1000;
+    private double money = 10000;
     private double moneyPerSecond;
     private double energy;
     private double energyPerSecond;
@@ -13,6 +11,7 @@ public class GameData {
     public void addMoney(double amount) {
         money += amount;
     }
+    public void withdrawMoney(double amount) { money -= amount; }
     public void withdrawMoneyPerSecond(double amount) {
         moneyPerSecond -= amount;
     }

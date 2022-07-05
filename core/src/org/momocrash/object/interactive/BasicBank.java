@@ -1,8 +1,7 @@
 package org.momocrash.object.interactive;
 
-import org.momocrash.Player;
-
-import java.util.UUID;
+import org.momocrash.IdleMain;
+import org.momocrash.data.Player;
 
 public class BasicBank extends InteractiveObject {
 
@@ -26,7 +25,7 @@ public class BasicBank extends InteractiveObject {
         if (enabled()) return;
 
         activated = System.currentTimeMillis();
-        owner.getData().addMoneyPerSecond(money);
+        owner.getPlayerData().addMoneyPerSecond(money);
         isUse = true;
 
     }
@@ -36,12 +35,13 @@ public class BasicBank extends InteractiveObject {
 
         if (System.currentTimeMillis() <= (activated + duration)) {
 
-            owner.getData().addMoney(money);
+            owner.getPlayerData().addMoney(money);
+            IdleMain.getInstance().getScreen().getTextManager().createAnimation("+" + money, getX() + 3f, getY() + 60f, 10f, 5f);
 
         } else if (enabled()) {
 
             isUse = false;
-            owner.getData().withdrawMoneyPerSecond(money);
+            owner.getPlayerData().withdrawMoneyPerSecond(money);
 
         }
 

@@ -1,6 +1,6 @@
 package org.momocrash.object.text;
 
-import org.momocrash.Player;
+import org.momocrash.data.Player;
 import org.momocrash.language.Translation;
 
 public class TranslatedText extends TextObject {

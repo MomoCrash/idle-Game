@@ -41,6 +41,10 @@ public abstract class TextObject  {
         return x;
     }
 
+    public void startAnimation(float x, float y) { }
+
+    public boolean animate() { return false; }
+
     public String getText() {
         return text;
     }
