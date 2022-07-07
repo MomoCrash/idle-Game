@@ -3,10 +3,8 @@ package org.momocrash.data;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import org.momocrash.language.Language;
-import org.momocrash.object.interactive.InteractiveObject;
-import org.momocrash.object.solid.SolidObject;
+import org.momocrash.object.interactive.IInteractiveObject;
 
-import java.util.List;
 import java.util.UUID;
 
 public class Player {
@@ -63,7 +61,7 @@ public class Player {
 
     }
 
-    public boolean touch(InteractiveObject object) {
+    public boolean touch(IInteractiveObject object) {
         // [0] = x ; [1] = y ; [2] = xMax ; [3] = yMAx
         int[] bounds = object.bounds();
 
@@ -75,25 +73,15 @@ public class Player {
 
     }
 
-    public boolean collideTo(float nextX, float nextY, List<SolidObject> objects) {
-
-        for (SolidObject object : objects) {
-
-            int[] bounds = object.bounds();
-
-            if (((nextX >= bounds[0] && nextX <= bounds[2])
-                    || ((nextX + width) >= bounds[0] && (nextX + width) <= bounds[2]))
-                    && ((nextY >= bounds[1] && nextY <= bounds[3])
-                    || (nextY + height) >= bounds[1] && (nextY + height) <= bounds[2])) {
-                return true;
-            }
-
-        }
-
-        return false;
-
+    public String getName() {
+        return name;
     }
-
+    public UUID getUniqueId() {
+        return uniqueId;
+    }
+    public PlayerData getPlayerData() {
+        return playerData;
+    }
     public Language getLang() {
         return lang;
     }
@@ -101,21 +89,14 @@ public class Player {
     public float getX() {
         return x;
     }
-
     public float getY() {
         return y;
     }
-
-    public String getName() {
-        return name;
+    public float getHeight() {
+        return height;
     }
-
-    public UUID getUniqueId() {
-        return uniqueId;
-    }
-
-    public PlayerData getPlayerData() {
-        return playerData;
+    public float getWidth() {
+        return width;
     }
 
 }

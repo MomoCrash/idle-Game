@@ -1,0 +1,3 @@
+pause:Jeu en pause@@
+money:Argent %money% - Argent/s %money_pers%@@
+energy:Energie %energy% - Energie/s %energy_pers%@@

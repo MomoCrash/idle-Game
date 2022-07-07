@@ -2,7 +2,7 @@ package org.momocrash.language;
 
 public enum Translation {
 
-    PAUSE("pause", "Game is now paused !"),
+    PAUSE("pause", "Game is now paused ! (Click to return)"),
 
     MONEY ("money", "Money %money% - Money/s %money_pers%"),
     ENERGY ("energy", "Energy %energy% - Energy/s %energy_pers%"),
@@ -22,12 +22,12 @@ public enum Translation {
 
     public String getTranslatedText(Language lang) {
 
-        return this.defaultText;
+        return lang.getTranslation(getId()) == null ? getDefaultText() : lang.getTranslation(getId());
 
     }
     public String getTranslatedText(Language lang, String[] placeHolder) {
 
-        String currentText = this.defaultText;
+        String currentText = getTranslatedText(lang);
 
         for (String holder : placeHolder) {
 
@@ -40,4 +40,11 @@ public enum Translation {
 
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public String getDefaultText() {
+        return defaultText;
+    }
 }

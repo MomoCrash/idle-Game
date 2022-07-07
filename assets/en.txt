@@ -1,0 +1,3 @@
+pause:Game is now paused ! (Click to return)@@
+money:Money %money% - Money/s %money_pers%@@
+energy:Energy %energy% - Energy/s %energy_pers%@@

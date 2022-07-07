@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import org.momocrash.IdleMain;
 
-public abstract class InteractiveObject {
+public abstract class IInteractiveObject {
 
     private final int x;
     private final int y;
@@ -15,7 +15,7 @@ public abstract class InteractiveObject {
     public boolean isUse = false;
     private String imagePath;
 
-    public InteractiveObject(int x, int y, int width, int height, String imagePath) {
+    public IInteractiveObject(int x, int y, int width, int height, String imagePath) {
 
         this.x = x;
         this.y = y;

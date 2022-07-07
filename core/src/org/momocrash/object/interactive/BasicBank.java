@@ -3,7 +3,7 @@ package org.momocrash.object.interactive;
 import org.momocrash.IdleMain;
 import org.momocrash.data.Player;
 
-public class BasicBank extends InteractiveObject {
+public class BasicBank extends IInteractiveObject {
 
     private final Player owner;
     private final double money;
@@ -12,7 +12,7 @@ public class BasicBank extends InteractiveObject {
     private long activated;
 
     public BasicBank(Player owner, double money, int duration, float x, float y) {
-        super((int) x,(int) y, 75, 75, "bank.png");
+        super((int) x,(int) y, 50, 50, "bank.png");
         this.owner = owner;
         this.money = money;
         this.duration = duration * 1000L;
@@ -36,7 +36,8 @@ public class BasicBank extends InteractiveObject {
         if (System.currentTimeMillis() <= (activated + duration)) {
 
             owner.getPlayerData().addMoney(money);
-            IdleMain.getInstance().getScreen().getTextManager().createAnimation("+" + money, getX() + 3f, getY() + 60f, 10f, 5f);
+            IdleMain.getInstance().getTextManager()
+                    .createAnimation("+" + money, getX() + 3f, getY() + 60f, 10f, 5f);
 
         } else if (enabled()) {
 

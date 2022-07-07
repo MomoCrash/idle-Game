@@ -3,9 +3,7 @@ package org.momocrash.object.text;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import org.momocrash.IdleMain;
 
-import java.util.Objects;
-
-public abstract class TextObject  {
+public abstract class IText {
 
     private final String text;
     private float x;
@@ -13,7 +11,7 @@ public abstract class TextObject  {
 
     private BitmapFont font;
 
-    public TextObject(String text, float x, float y) {
+    public IText(String text, float x, float y) {
 
         this.text = text;
         this.x = x;
@@ -21,7 +19,7 @@ public abstract class TextObject  {
 
     }
 
-    public TextObject(String text, float x, float y, BitmapFont font) {
+    public IText(String text, float x, float y, BitmapFont font) {
 
         this.text = text;
         this.x = x;
