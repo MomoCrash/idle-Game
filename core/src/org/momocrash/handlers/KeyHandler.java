@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import org.momocrash.IdleMain;
 import org.momocrash.data.Player;
+import org.momocrash.object.menu.component.Component;
 import org.momocrash.object.solid.SolidManager;
 
 public class KeyHandler implements InputProcessor {
@@ -41,13 +42,18 @@ public class KeyHandler implements InputProcessor {
             IdleMain.getInstance().play();
         }
 
-        if (pointer <= 0) return false;
+
+        Player player = IdleMain.getInstance().getPlayer();
 
         if (button == Input.Buttons.LEFT) {
-            IdleMain.getInstance().getInteractiveManager().activate(IdleMain.getInstance().getPlayer());
+            IdleMain.getInstance().getInteractiveManager().activate(player);
+            Component component = IdleMain.getInstance().getMenuHandler().handleClick(screenX, 720 - screenY);
+            if ( component != null ) {
+                component.run();
+            }
             return true;
         } else if (button == Input.Buttons.RIGHT) {
-            IdleMain.getInstance().getScreen().
+            IdleMain.getInstance().getMenuHandler().toggleDisplay("constructor");
         }
 
         return false;

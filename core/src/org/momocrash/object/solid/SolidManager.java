@@ -7,35 +7,35 @@ import org.momocrash.data.Player;
 
 public class SolidManager {
 
-    private final ObjectList<ISolidObject> ISolidObjects;
+    private final ObjectList<SolidObject> SolidObjects;
 
     public SolidManager() {
-        ISolidObjects = new ObjectArrayList<>();
+        SolidObjects = new ObjectArrayList<>();
     }
 
     public void renderShape(ShapeRenderer renderer) {
-        for (ISolidObject ISolidObject : ISolidObjects) {
-            ISolidObject.drawShape(renderer);
+        for (SolidObject SolidObject : SolidObjects) {
+            SolidObject.drawShape(renderer);
         }
     }
 
     public void renderImage() {
-        for (ISolidObject ISolidObject : ISolidObjects) {
-            ISolidObject.drawImage();
+        for (SolidObject SolidObject : SolidObjects) {
+            SolidObject.drawImage();
         }
     }
 
-    public void add(ISolidObject object) {
-        this.ISolidObjects.add(object);
+    public void add(SolidObject object) {
+        this.SolidObjects.add(object);
     }
 
-    public ObjectList<ISolidObject> getAll() {
-        return this.ISolidObjects;
+    public ObjectList<SolidObject> getAll() {
+        return this.SolidObjects;
     }
 
     public boolean collideTo(Player player, float nextX, float nextY) {
 
-        for (ISolidObject object : getAll()) {
+        for (SolidObject object : getAll()) {
 
             int[] bounds = object.bounds();
 

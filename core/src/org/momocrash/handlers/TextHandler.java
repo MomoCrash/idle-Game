@@ -1,17 +1,20 @@
-package org.momocrash.object.text;
+package org.momocrash.handlers;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectList;
 import org.momocrash.data.Player;
+import org.momocrash.object.text.AnimatedText;
+import org.momocrash.object.text.BasicText;
+import org.momocrash.object.text.Text;
 
 import java.util.UUID;
 
 public class TextHandler {
 
-    private final ObjectList<IText> textObjects;
-    private final Object2ObjectMap<UUID, IText> ownedText;
+    private final ObjectList<Text> textObjects;
+    private final Object2ObjectMap<UUID, Text> ownedText;
 
     public TextHandler() {
 
@@ -22,10 +25,10 @@ public class TextHandler {
 
     public void renderText() {
 
-        for (IText IText : textObjects) {
-            IText.drawText();
+        for (Text Text : textObjects) {
+            Text.drawText();
         }
-        for (IText value : ownedText.values()) {
+        for (Text value : ownedText.values()) {
             value.drawText();
         }
 
@@ -33,9 +36,9 @@ public class TextHandler {
 
     public void updateAnimation() {
 
-        for (IText IText : textObjects) {
-            if (!IText.animate()) {
-                textObjects.remove(IText);
+        for (Text Text : textObjects) {
+            if (!Text.animate()) {
+                textObjects.remove(Text);
             }
         }
 

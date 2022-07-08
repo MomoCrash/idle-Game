@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import org.momocrash.IdleMain;
 
-public abstract class ISolidObject {
+public abstract class SolidObject {
 
     private final int x;
     private final int y;
@@ -19,7 +19,7 @@ public abstract class ISolidObject {
     private final String imagePath;
     private Texture texture;
 
-    public ISolidObject(int x, int y, int width, int height, String imagePath) {
+    public SolidObject(int x, int y, int width, int height, String imagePath) {
 
         this.x = x;
         this.y = y;

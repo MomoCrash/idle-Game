@@ -1,6 +1,6 @@
 package org.momocrash.object.text;
 
-public class AnimatedText extends IText {
+public class AnimatedText extends Text {
 
     private float finalX;
     private float finalY;

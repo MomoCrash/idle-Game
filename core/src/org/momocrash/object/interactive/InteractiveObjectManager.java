@@ -7,7 +7,7 @@ import org.momocrash.data.Player;
 
 public class InteractiveObjectManager {
 
-    private final ObjectList<IInteractiveObject> IInteractiveObjects;
+    private final ObjectList<InteractiveObject> IInteractiveObjects;
 
     public InteractiveObjectManager() {
 
@@ -17,7 +17,7 @@ public class InteractiveObjectManager {
 
     public void renderShape(ShapeRenderer renderer) {
 
-        for (IInteractiveObject IInteractiveObject : IInteractiveObjects) {
+        for (InteractiveObject IInteractiveObject : IInteractiveObjects) {
             IInteractiveObject.drawShape(renderer);
         }
 
@@ -25,14 +25,14 @@ public class InteractiveObjectManager {
 
     public void renderImage() {
 
-        for (IInteractiveObject IInteractiveObject : IInteractiveObjects) {
+        for (InteractiveObject IInteractiveObject : IInteractiveObjects) {
             IInteractiveObject.drawImage();
         }
 
     }
 
     public boolean touch(Player player) {
-        for (IInteractiveObject IInteractiveObject : IInteractiveObjects) {
+        for (InteractiveObject IInteractiveObject : IInteractiveObjects) {
             if (player.touch(IInteractiveObject)) {
                 return true;
             }
@@ -42,7 +42,7 @@ public class InteractiveObjectManager {
 
     public boolean activate(Player player) {
 
-        for (IInteractiveObject IInteractiveObject : IInteractiveObjects) {
+        for (InteractiveObject IInteractiveObject : IInteractiveObjects) {
             if (player.touch(IInteractiveObject) && !IInteractiveObject.enabled()) {
                 IInteractiveObject.activate();
                 return true;
@@ -53,13 +53,13 @@ public class InteractiveObjectManager {
 
     public void useAll() {
 
-        for (IInteractiveObject IInteractiveObject : IInteractiveObjects) {
+        for (InteractiveObject IInteractiveObject : IInteractiveObjects) {
             IInteractiveObject.use();
         }
 
     }
 
-    public void add(IInteractiveObject object) {
+    public void add(InteractiveObject object) {
         this.IInteractiveObjects.add(object);
     }
 

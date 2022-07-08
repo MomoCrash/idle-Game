@@ -5,6 +5,9 @@ public enum State {
     PLAY,
     PAUSED,
 
+    DISPLAYED,
+    HIDDEN,
+
     ;
 
 }

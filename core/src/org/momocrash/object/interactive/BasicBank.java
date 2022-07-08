@@ -3,7 +3,7 @@ package org.momocrash.object.interactive;
 import org.momocrash.IdleMain;
 import org.momocrash.data.Player;
 
-public class BasicBank extends IInteractiveObject {
+public class BasicBank extends InteractiveObject {
 
     private final Player owner;
     private final double money;

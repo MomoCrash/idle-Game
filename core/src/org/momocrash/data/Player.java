@@ -3,7 +3,8 @@ package org.momocrash.data;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import org.momocrash.language.Language;
-import org.momocrash.object.interactive.IInteractiveObject;
+import org.momocrash.object.interactive.InteractiveObject;
+import org.momocrash.utils.PositionUtils;
 
 import java.util.UUID;
 
@@ -61,15 +62,12 @@ public class Player {
 
     }
 
-    public boolean touch(IInteractiveObject object) {
+    public boolean touch(InteractiveObject object) {
         // [0] = x ; [1] = y ; [2] = xMax ; [3] = yMAx
         int[] bounds = object.bounds();
 
-        return ((getX() >= bounds[0] && getX() <= bounds[2] && getY() >= bounds[1] && getY() <= bounds[3])
-                || (getX() + width >= bounds[0] && getX() + width <= bounds[2] && getY() >= bounds[1] && getY() <= bounds[3])
-                || (getX() >= bounds[0] && getX() <= bounds[2] && getY() + height >= bounds[1] && getY() + height <= bounds[3])
-                || (getX() + width >= bounds[0] && getX() + width <= bounds[2]
-                    && getY() + height >= bounds[1] && getY() + height <= bounds[3]));
+        return PositionUtils.objectIsInsideOther(getX(), getY(), getX() + width, getY() + getHeight(),
+                bounds[0], bounds[1], bounds[2], bounds[3]);
 
     }
 

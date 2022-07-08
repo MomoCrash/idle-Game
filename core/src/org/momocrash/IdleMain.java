@@ -8,8 +8,9 @@ import org.momocrash.data.PlayerData;
 import org.momocrash.language.Language;
 import org.momocrash.object.State;
 import org.momocrash.object.interactive.InteractiveObjectManager;
+import org.momocrash.handlers.MenuHandler;
 import org.momocrash.object.solid.SolidManager;
-import org.momocrash.object.text.TextHandler;
+import org.momocrash.handlers.TextHandler;
 import org.momocrash.screens.GameScreen;
 
 import java.util.UUID;
@@ -75,6 +76,9 @@ public class IdleMain extends Game {
 	}
 	public TextHandler getTextManager() {
 		return screen.getTextManager();
+	}
+	public MenuHandler getMenuHandler() {
+		return screen.getMenuHandler();
 	}
 
 	// Game state

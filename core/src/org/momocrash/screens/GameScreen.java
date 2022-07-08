@@ -3,6 +3,7 @@ package org.momocrash.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -13,13 +14,13 @@ import org.momocrash.data.PlayerData;
 import org.momocrash.handlers.KeyHandler;
 import org.momocrash.language.Translation;
 import org.momocrash.object.interactive.InteractiveObjectManager;
-import org.momocrash.object.menu.MenuHandler;
+import org.momocrash.handlers.MenuHandler;
 import org.momocrash.object.solid.SolidManager;
-import org.momocrash.object.text.TextHandler;
+import org.momocrash.handlers.TextHandler;
 import org.momocrash.object.solid.Wall;
 import org.momocrash.object.text.BasicText;
 import org.momocrash.object.interactive.BasicBank;
-import org.momocrash.object.text.TranslatedIText;
+import org.momocrash.object.text.TranslatedText;
 
 public class GameScreen implements Screen {
 
@@ -46,7 +47,7 @@ public class GameScreen implements Screen {
         solidManager = new SolidManager();
         interactiveManager = new InteractiveObjectManager();
         textHandler = new TextHandler();
-        menuHandler = new MenuHandler();
+        menuHandler = new MenuHandler(game.getPlayer());
         keyHandler = new KeyHandler();
 
         camera.setToOrtho(false, 1080, 720);
@@ -57,7 +58,7 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
 
-        ScreenUtils.clear(0.1f, 0.1f, 0.1f, 1);
+        ScreenUtils.clear(Color.SKY);
 
         camera.update();
         game.getBatch().setProjectionMatrix(camera.combined);
@@ -80,7 +81,7 @@ public class GameScreen implements Screen {
         keyHandler.move(player);
         if (Gdx.input.isKeyPressed(Input.Keys.Q) && antiSpam()) {
             if (!interactiveManager.touch(player) && playerData.hasEnoughMoney(1000)) {
-                interactiveManager.add(new BasicBank(player, 100, 10, player.getX(), player.getY()));
+                interactiveManager.add(new BasicBank(player, 1000, 5, player.getX(), player.getY()));
                 playerData.withdrawMoney(1000);
             }
         }
@@ -113,12 +114,12 @@ public class GameScreen implements Screen {
             new BasicText("FPS=" + Gdx.graphics.getFramesPerSecond(), 10, 20).drawText();
         }
 
-        new TranslatedIText(player, Translation.MONEY,
+        new TranslatedText(player, Translation.MONEY,
                 new String[]{"money," + playerData.getMoney(),
                         "money_pers," + playerData.getPerSecondMoney()},
                 10, 710).drawText();
 
-        new TranslatedIText(player, Translation.ENERGY,
+        new TranslatedText(player, Translation.ENERGY,
                 new String[]{"energy," + playerData.getEnergy(),
                         "energy_pers," + playerData.getPerSecondEnergy()},
                 10, 690).drawText();
@@ -150,7 +151,7 @@ public class GameScreen implements Screen {
         Player player = game.getPlayer();
 
         game.getBatch().begin();
-        new TranslatedIText(player, Translation.PAUSE, 400, 400).drawText();
+        new TranslatedText(player, Translation.PAUSE, 400, 400).drawText();
         game.getBatch().end();
 
     }
